@@ -1,8 +1,10 @@
 data:
   n_samples: 500
-  noise: 0.3
+  noise: 30
   test_size: 0.2
   random_seed: 42
+  weight: 2.8
+  bias: 30
 
 model:
   learning_rate: 0.01
