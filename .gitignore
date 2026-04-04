@@ -1,0 +1,52 @@
+.vscode
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+*.conda
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Data (large files — push only small CSVs)
+data/raw/*.csv
+data/raw/*.zip
+data/raw/*.json
+*.h5
+*.pkl
+
+# Results (regeneratable — no need to push)
+results/*.png
+results/*.gif
+results/*.csv
+
+# Logs
+logs/
+*.log
+
+# Benchmark outputs
+benchmark/results.csv

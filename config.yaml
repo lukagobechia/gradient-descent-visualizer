@@ -1,0 +1,18 @@
+data:
+  n_samples: 500
+  noise: 0.3
+  test_size: 0.2
+  random_seed: 42
+
+model:
+  learning_rate: 0.01
+  epochs: 1000
+  tolerance: 1.0e-6
+
+  mini_batch:
+    batch_size: 32
+
+visualization:
+  figsize: [14, 5]
+  save_plots: true
+  show_plots: true
