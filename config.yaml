@@ -1,6 +1,6 @@
 data:
   n_samples: 500
-  noise: 30
+  noise: 3.0
   test_size: 0.2
   random_seed: 42
   weight: 2.8

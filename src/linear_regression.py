@@ -49,22 +49,5 @@ class LinearRegression:
             "mse": mse,
             "rmse": rmse,
             "mae": mae,
-        "r2": r2
+            "r2": r2
     }
-
-
-if __name__ == "__main__":
-    from data.generate_data import generate_linear_data
-    from src.utils import preprocess
-
-    X, y                             = generate_linear_data()
-    X_train, _, y_train, _, _, _  = preprocess(X, y)
-
-    model = LinearRegression()
-    model.initialize_weights(X_train.shape[1])
-
-    print(f"w     : {model.w}")
-
-    metrics = model.evaluate(X_train, y_train)
-    for name, val in metrics.items():
-        print(f"{name} : {val:.4f}")
