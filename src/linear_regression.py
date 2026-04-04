@@ -12,7 +12,7 @@ class LinearRegression:
 
 
     def initialize_weights(self, n_features):
-        self.w = np.random.randn(n_features)
+        self.w = np.zeros(n_features)
         self.b = 0.0
 
     def predict(self, X):
@@ -22,7 +22,7 @@ class LinearRegression:
     def mse(self, y, y_hat):
         n = y.shape[0]
         error = y_hat - y
-        mse = np.sum(error**2) / (n * 2)
+        mse = np.mean(error**2)
         return mse
 
     def rmse(self, y, y_hat):
@@ -54,3 +54,22 @@ class LinearRegression:
             "mae": mae,
         "r2": r2
     }
+
+
+if __name__ == "__main__":
+    from data.generate_data import generate_linear_data
+    from src.utils import train_test_split, normalize
+
+    X, y                             = generate_linear_data()
+    X_train, X_test, y_train, y_test = train_test_split(X, y)
+    X_train_norm, X_test_norm, _, _  = normalize(X_train, X_test)
+
+    model = LinearRegression()
+    model.initialize_weights(X_train_norm.shape[1])
+
+    print(f"w     : {model.w}")          # [0.]
+    print(f"b     : {model.b}")          # 0.0
+
+    metrics = model.evaluate(X_train_norm, y_train)
+    for name, val in metrics.items():
+        print(f"{name} : {val:.4f}")
