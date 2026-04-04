@@ -32,6 +32,11 @@ def train_test_split(X,y):
     return X_train, X_test, y_train, y_test
 
 
+def absorb_bias(X):
+    n_samples = X.shape[0]
+    bias = np.ones((n_samples, 1))
+    return np.c_[bias, X]
+
 def normalize(X_train, X_test):
     mean = X_train.mean(axis=0)
     std = X_train.std(axis=0)
@@ -41,10 +46,15 @@ def normalize(X_train, X_test):
 
     return X_train_norm, X_test_norm, mean, std
 
-
 def denormalize(X_norm, mean, std):
     return X_norm * std + mean
 
+def preprocess(X, y):
+    X_train, X_test, y_train, y_test = train_test_split(X, y)
+    X_train_norm, X_test_norm, mean, std = normalize(X_train, X_test)
+    X_train_final = absorb_bias(X_train_norm)
+    X_test_final = absorb_bias(X_test_norm)
+    return X_train_final, X_test_final, y_train, y_test, mean, std
 
 if __name__ == "__main__":
     from data.generate_data import generate_linear_data

@@ -7,16 +7,13 @@ class LinearRegression:
 
     def __init__(self):
         self.w = None
-        self.b = None
         self.loss_history = []
-
 
     def initialize_weights(self, n_features):
         self.w = np.zeros(n_features)
-        self.b = 0.0
 
     def predict(self, X):
-        y_hat = X@self.w + self.b
+        y_hat = X@self.w
         return y_hat
 
     def mse(self, y, y_hat):
@@ -58,18 +55,16 @@ class LinearRegression:
 
 if __name__ == "__main__":
     from data.generate_data import generate_linear_data
-    from src.utils import train_test_split, normalize
+    from src.utils import preprocess
 
     X, y                             = generate_linear_data()
-    X_train, X_test, y_train, y_test = train_test_split(X, y)
-    X_train_norm, X_test_norm, _, _  = normalize(X_train, X_test)
+    X_train, _, y_train, _, _, _  = preprocess(X, y)
 
     model = LinearRegression()
-    model.initialize_weights(X_train_norm.shape[1])
+    model.initialize_weights(X_train.shape[1])
 
-    print(f"w     : {model.w}")          # [0.]
-    print(f"b     : {model.b}")          # 0.0
+    print(f"w     : {model.w}")
 
-    metrics = model.evaluate(X_train_norm, y_train)
+    metrics = model.evaluate(X_train, y_train)
     for name, val in metrics.items():
         print(f"{name} : {val:.4f}")
