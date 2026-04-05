@@ -93,6 +93,9 @@ gradient-descent-visualizer/
 │   └── demo.ipynb                    ← interactive walkthrough
 │
 ├── results/
+├── generated_data.png
+├── loss_curves.png
+├── weight_trajectory.png
 │
 ├── src/
 │   ├── config_loader.py              ← loads config.yml
@@ -175,8 +178,32 @@ model:
 
 ## 📊 Results
 
-### Loss Curves
+### 📉 Loss Curves
+
+All three optimizers trained on 500 synthetic samples (study hours vs exam score).
+
 ![loss curves](results/loss_curves.png)
+
+| Observation | Detail |
+|---|---|
+| Batch GD | smooth convergence, takes ~900 epochs |
+| Stochastic GD | converges in epoch 1, stays noisy around minimum |
+| Mini-Batch GD | fast and stable, converges in ~85 epochs |
+
+---
+
+### 🗺️ Weight Trajectory on Loss Surface
+
+Shows how each optimizer's weights moved during training.
+Background color represents MSE loss — darker = lower loss, center = minimum.
+
+![weight trajectory](results/weight_trajectory.png)
+
+| Observation | Detail |
+|---|---|
+| Batch GD | smooth straight path from [0,0] to minimum |
+| Stochastic GD | converges instantly — start and end nearly identical |
+| Mini-Batch GD | slightly noisy but direct path to minimum |
 ---
 
 ## 🔍 Key Takeaways
