@@ -1,7 +1,7 @@
 # gradient-descent-visualizer
 
 > Implementing and comparing Batch, Stochastic, and Mini-Batch
-> Gradient Descent from scratch using NumPy — no scikit-learn.
+> Gradient Descent from scratch using NumPy, no scikit-learn.
 
 ---
 
@@ -93,6 +93,8 @@ gradient-descent-visualizer/
 │   └── demo.ipynb                    ← interactive walkthrough
 │
 ├── results/
+├── comparison_table.csv
+├── comparison_table.png
 ├── generated_data.png
 ├── loss_curves.png
 ├── weight_trajectory.png
@@ -155,7 +157,7 @@ python src/test.py
 
 ## ⚙️ Configuration
 
-All hyperparameters live in `config.yml` — no need to touch Python files:
+All hyperparameters live in `config.yml`, no need to touch Python files:
 
 ```yaml
 data:
@@ -178,32 +180,51 @@ model:
 
 ## 📊 Results
 
+> All models trained on 500 synthetic data points: **Study Hours vs Exam Score**
+> (`weight=2.8`, `bias=30.0`, `noise=3.0`, `random_seed=42`)
+
+---
+
 ### 📉 Loss Curves
 
-All three optimizers trained on 500 synthetic samples (study hours vs exam score).
+Tracks MSE loss at every epoch for all three optimizers.
 
 ![loss curves](results/loss_curves.png)
 
-| Observation | Detail |
+| Optimizer | Behavior |
 |---|---|
-| Batch GD | smooth convergence, takes ~900 epochs |
-| Stochastic GD | converges in epoch 1, stays noisy around minimum |
-| Mini-Batch GD | fast and stable, converges in ~85 epochs |
+| **Batch GD** | Smooth and stable. It uses all 400 samples every epoch |
+| **Stochastic GD** | Converges in epoch 1 but stays noisy. 400 updates per epoch |
+| **Mini-Batch GD** | Fast and stable. It converges in ~85 epochs using 32 samples per step |
 
 ---
 
 ### 🗺️ Weight Trajectory on Loss Surface
 
-Shows how each optimizer's weights moved during training.
-Background color represents MSE loss — darker = lower loss, center = minimum.
+Shows the path each optimizer's weights took during training.
+Background color represents MSE, **darker = lower loss**, center = minimum.
 
 ![weight trajectory](results/weight_trajectory.png)
 
-| Observation | Detail |
+| Optimizer | Path |
 |---|---|
-| Batch GD | smooth straight path from [0,0] to minimum |
-| Stochastic GD | converges instantly — start and end nearly identical |
-| Mini-Batch GD | slightly noisy but direct path to minimum |
+| **Batch GD** | Smooth straight path from `[0,0]` to minimum |
+| **Stochastic GD** | Converges instantly, start and end is nearly identical |
+| **Mini-Batch GD** | Slightly noisy but direct path to minimum |
+
+---
+
+### 📊 Evaluation Table
+
+All models evaluated on held-out test set (20% of 500 samples = 100 samples).
+
+![comparison table](results/comparison_table.png)
+
+**Key takeaways from the numbers:**
+- All three optimizers achieve similar **R² ≈ 0.98** same final quality
+- **Mini-Batch GD** converges fastest in fewest epochs
+- **Stochastic GD** is slowest in wall-clock time due to 400 updates per epoch
+- **Batch GD** is most stable but takes the most epochs to converge
 ---
 
 ## 🔍 Key Takeaways
