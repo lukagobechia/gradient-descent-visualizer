@@ -29,7 +29,7 @@ class StochasticGD(LinearRegression):
             for i in indices:
                 X_i = X[i].reshape(1,-1) # (1, 2) -> (1,2) @ (2,) to be possible
                 y_hat_i = self.predict(X_i)
-                error = y_hat_i - y[i]
+                error = y_hat_i - y[i].squeeze()
 
                 gradient = (X_i.T * error).flatten()
 

@@ -17,7 +17,6 @@ class LinearRegression:
         return y_hat
 
     def mse(self, y, y_hat):
-        n = y.shape[0]
         error = y_hat - y
         mse = np.mean(error**2)
         return mse
@@ -50,4 +49,4 @@ class LinearRegression:
             "rmse": rmse,
             "mae": mae,
             "r2": r2
-    }
+        }
