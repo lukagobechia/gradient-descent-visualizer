@@ -44,6 +44,7 @@ class MiniBatchGD(LinearRegression):
                 gradient = (X_batch.T @ error) * (1 / X_batch.shape[0])
 
                 self.w = self.w - self.learning_rate * gradient
+            self.weight_history.append(self.w.copy())
 
             y_hat = self.predict(X)
             loss = self.mse(y, y_hat)

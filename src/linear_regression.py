@@ -10,6 +10,7 @@ class LinearRegression:
     def __init__(self):
         self.w = None
         self.loss_history = []
+        self.weight_history = []
 
     def initialize_weights(self, n_features):
         self.w = np.zeros(n_features)

@@ -37,6 +37,7 @@ class StochasticGD(LinearRegression):
                 gradient = (X_i.T * error).flatten()
 
                 self.w = self.w - self.learning_rate * gradient
+            self.weight_history.append(self.w.copy())
 
             y_hat = self.predict(X)
             loss = self.mse(y, y_hat)

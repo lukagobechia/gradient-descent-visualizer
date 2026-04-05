@@ -28,7 +28,8 @@ class BatchGD(LinearRegression):
             gradient = (1 / n_samples) * X.T @ error
 
             self.w = self.w - self.learning_rate * gradient
-
+            self.weight_history.append(self.w.copy())
+            
             loss = self.mse(y, y_hat)
             self.loss_history.append(loss)
 
