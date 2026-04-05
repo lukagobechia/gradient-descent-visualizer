@@ -1,11 +1,13 @@
-import sys, os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+import os
+import sys
+
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 from data.generate_data import generate_linear_data
-from src.utils import preprocess
 from src.optimizers.batch_gd import BatchGD
-from src.optimizers.stochastic_gd import StochasticGD
 from src.optimizers.minibatch_gd import MiniBatchGD
+from src.optimizers.stochastic_gd import StochasticGD
+from src.utils import preprocess
 
 
 def train_all_models():
@@ -25,9 +27,9 @@ def train_all_models():
     minibatch_model.fit(X_train, y_train)
 
     models = {
-        "Batch GD"      : batch_model,
-        "Stochastic GD" : sgd_model,
-        "Mini-Batch GD" : minibatch_model,
+        "Batch GD": batch_model,
+        "Stochastic GD": sgd_model,
+        "Mini-Batch GD": minibatch_model,
     }
 
     return models, X_test, y_test
