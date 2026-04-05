@@ -174,8 +174,8 @@ model:
 
 ## 📊 Results
 
-*Coming soon, plots will be added after visualizations are complete.*
-
+### Loss Curves
+![loss curves](results/loss_curves.png)
 ---
 
 ## 🔍 Key Takeaways
