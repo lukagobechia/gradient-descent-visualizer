@@ -1,4 +1,6 @@
-import numpy as np
+import sys, os
+sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
+
 from src.linear_regression import LinearRegression
 from src.config_loader import load_config
 class BatchGD(LinearRegression):
@@ -31,7 +33,7 @@ class BatchGD(LinearRegression):
                 if loss_change < tolerance:
                     print(f"Converged at epoch {epoch}")
                     break
-                
+
             if epoch % 100 == 0:
                 print(f"epoch {epoch:4d} loss: {loss:.4f}")
         return self
