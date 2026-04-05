@@ -5,35 +5,18 @@ import matplotlib.pyplot as plt
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
-from data.generate_data import generate_linear_data
 from src.config_loader import load_config
-from src.optimizers.batch_gd import BatchGD
-from src.optimizers.minibatch_gd import MiniBatchGD
-from src.optimizers.stochastic_gd import StochasticGD
-from src.utils import preprocess
+from src.train import train_all_models
 
 
 def plot_loss_curves():
     config = load_config()
 
-    X, y = generate_linear_data()
-    X_train, X_test, y_train, y_test, _, _ = preprocess(X, y)
+    models, _, _ = train_all_models()
 
-    print("Training Batch GD...")
-    batch_model = BatchGD()
-    batch_model.fit(X_train, y_train)
-
-    print("Training Stochastic GD...")
-    sgd_model = StochasticGD()
-    sgd_model.fit(X_train, y_train)
-
-    print("Training Mini-Batch GD...")
-    minibatch_model = MiniBatchGD()
-    minibatch_model.fit(X_train, y_train)
-
-    batch_loss = batch_model.loss_history
-    sgd_loss = sgd_model.loss_history
-    minibatch_loss = minibatch_model.loss_history
+    batch_loss = models["Batch GD"].loss_history
+    sgd_loss = models["Stochastic GD"].loss_history
+    minibatch_loss = models["Mini-Batch GD"].loss_history
 
     fig, axes = plt.subplots(1, 3, figsize=(14, 5))
 

@@ -98,6 +98,7 @@ gradient-descent-visualizer/
 │   ├── config_loader.py              ← loads config.yml
 │   ├── linear_regression.py          ← base class: predict, mse, rmse, mae, r2
 │   ├── utils.py                      ← split, normalize, absorb_bias, preprocess
+│   ├── train.py                      ← train all 3 models
 │   ├── test.py                       ← tests for all models
 │   └── optimizers/
 │       ├── batch_gd.py               ← batch gradient descent
