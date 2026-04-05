@@ -1,13 +1,16 @@
-import numpy as np
-import sys, os
+import os
+import sys
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+import numpy as np
+
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from src.config_loader import load_config
 
-def train_test_split(X,y):
+
+def train_test_split(X, y):
     config = load_config()
-    test_size = config['data']['test_size']
-    random_seed = config['data']['random_seed']
+    test_size = config["data"]["test_size"]
+    random_seed = config["data"]["random_seed"]
 
     np.random.seed(random_seed)
 
@@ -28,7 +31,7 @@ def train_test_split(X,y):
     X_test = X[test_indices]
     y_train = y[train_indices]
     y_test = y[test_indices]
-    
+
     return X_train, X_test, y_train, y_test
 
 
@@ -36,6 +39,7 @@ def absorb_bias(X):
     n_samples = X.shape[0]
     bias = np.ones((n_samples, 1))
     return np.c_[bias, X]
+
 
 def normalize(X_train, X_test):
     mean = X_train.mean(axis=0)
@@ -46,8 +50,10 @@ def normalize(X_train, X_test):
 
     return X_train_norm, X_test_norm, mean, std
 
+
 def denormalize(X_norm, mean, std):
     return X_norm * std + mean
+
 
 def preprocess(X, y):
     X_train, X_test, y_train, y_test = train_test_split(X, y)
@@ -55,6 +61,7 @@ def preprocess(X, y):
     X_train_final = absorb_bias(X_train_norm)
     X_test_final = absorb_bias(X_test_norm)
     return X_train_final, X_test_final, y_train, y_test, mean, std
+
 
 if __name__ == "__main__":
     from data.generate_data import generate_linear_data

@@ -1,10 +1,12 @@
-import numpy as np
-import sys, os
+import os
+import sys
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+import numpy as np
+
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+
 
 class LinearRegression:
-
     def __init__(self):
         self.w = None
         self.loss_history = []
@@ -13,7 +15,7 @@ class LinearRegression:
         self.w = np.zeros(n_features)
 
     def predict(self, X):
-        y_hat = X@self.w
+        y_hat = X @ self.w
         return y_hat
 
     def mse(self, y, y_hat):
@@ -32,9 +34,9 @@ class LinearRegression:
         return mae
 
     def r2_score(self, y, y_hat):
-    
+
         ss_res = np.sum((y_hat - y) ** 2)
-        ss_tot = np.sum((y-y.mean())**2)
+        ss_tot = np.sum((y - y.mean()) ** 2)
         r2 = 1 - (ss_res / ss_tot)
         return r2
 
@@ -44,9 +46,4 @@ class LinearRegression:
         rmse = self.rmse(y, y_hat)
         mae = self.mae(y, y_hat)
         r2 = self.r2_score(y, y_hat)
-        return {
-            "mse": mse,
-            "rmse": rmse,
-            "mae": mae,
-            "r2": r2
-        }
+        return {"mse": mse, "rmse": rmse, "mae": mae, "r2": r2}

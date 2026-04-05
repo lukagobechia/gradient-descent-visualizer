@@ -1,8 +1,12 @@
-import sys, os
-sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
+import os
+import sys
 
-from src.linear_regression import LinearRegression
+sys.path.append(os.path.join(os.path.dirname(__file__), "../.."))
+
 from src.config_loader import load_config
+from src.linear_regression import LinearRegression
+
+
 class BatchGD(LinearRegression):
     def __init__(self):
         super().__init__()
@@ -11,17 +15,17 @@ class BatchGD(LinearRegression):
 
     def fit(self, X, y):
         config = load_config()
-        self.learning_rate = config['model']['learning_rate']
-        self.epochs = config['model']['epochs']
-        tolerance = config['model']['tolerance']
+        self.learning_rate = config["model"]["learning_rate"]
+        self.epochs = config["model"]["epochs"]
+        tolerance = config["model"]["tolerance"]
 
-        n_samples,n_features = X.shape
+        n_samples, n_features = X.shape
         self.initialize_weights(n_features)
 
         for epoch in range(self.epochs):
             y_hat = self.predict(X)
             error = y_hat - y
-            gradient = (1/n_samples) * X.T @error
+            gradient = (1 / n_samples) * X.T @ error
 
             self.w = self.w - self.learning_rate * gradient
 

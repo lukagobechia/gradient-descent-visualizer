@@ -1,9 +1,13 @@
-import sys, os
-import numpy as np
-sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
+import os
+import sys
 
-from src.linear_regression import LinearRegression
+import numpy as np
+
+sys.path.append(os.path.join(os.path.dirname(__file__), "../.."))
+
 from src.config_loader import load_config
+from src.linear_regression import LinearRegression
+
 
 class MiniBatchGD(LinearRegression):
     def __init__(self):
@@ -15,10 +19,10 @@ class MiniBatchGD(LinearRegression):
     def fit(self, X, y):
         config = load_config()
 
-        self.learning_rate = config['model']['learning_rate']
-        self.epochs = config['model']['epochs']
-        self.batch_size = config['model']['mini_batch']['batch_size']
-        tolerance = config['model']['tolerance']
+        self.learning_rate = config["model"]["learning_rate"]
+        self.epochs = config["model"]["epochs"]
+        self.batch_size = config["model"]["mini_batch"]["batch_size"]
+        tolerance = config["model"]["tolerance"]
 
         n_samples, n_features = X.shape
         self.initialize_weights(n_features)
@@ -29,20 +33,18 @@ class MiniBatchGD(LinearRegression):
             y_shuffled = y[indices]
 
             for start in range(0, n_samples, self.batch_size):
-
                 end = start + self.batch_size
-                X_batch = X_shuffled[start:end]  
-                y_batch = y_shuffled[start:end] 
+                X_batch = X_shuffled[start:end]
+                y_batch = y_shuffled[start:end]
 
                 y_hat_batch = self.predict(X_batch)
 
                 error = y_hat_batch - y_batch
 
-                gradient = (X_batch.T @ error) * (1/X_batch.shape[0])
+                gradient = (X_batch.T @ error) * (1 / X_batch.shape[0])
 
                 self.w = self.w - self.learning_rate * gradient
 
-            
             y_hat = self.predict(X)
             loss = self.mse(y, y_hat)
             self.loss_history.append(loss)
@@ -55,7 +57,5 @@ class MiniBatchGD(LinearRegression):
 
             if epoch % 100 == 0:
                 print(f"epoch {epoch:4d}  loss: {loss:.4f}")
-                
+
         return self
-
-
