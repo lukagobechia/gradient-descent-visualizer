@@ -52,26 +52,41 @@ def plot_weight_trajectory():
         (minibatch_model, "Mini-Batch GD", "mediumseagreen"),
     ]
 
-
     for ax, (model, name, color) in zip(axes, optimizer_list):
         ax.contourf(W0, W1, losses, levels=50, cmap="YlOrRd_r", alpha=0.8)
-        ax.contour(W0, W1, losses, levels=20, colors="white",linewidths=0.5, alpha=0.8)
+        ax.contour(W0, W1, losses, levels=20, colors="white", linewidths=0.5, alpha=0.8)
 
         history = np.array(model.weight_history)
-        
-        ax.plot(history[:,0], history[:, 1], color=color, linewidth=1.5, alpha=0.8, label="path")
 
-        ax.scatter(history[0,0], history[0,1], color="white", s=80, zorder=5, label="start")
+        ax.plot(
+            history[:, 0],
+            history[:, 1],
+            color=color,
+            linewidth=1.5,
+            alpha=0.8,
+            label="path",
+        )
 
-        ax.scatter(history[-1, 0], history[-1,1], color="yellow", s=150, marker="*", zorder=5, label="end")
+        ax.scatter(
+            history[0, 0], history[0, 1], color="white", s=80, zorder=5, label="start"
+        )
+
+        ax.scatter(
+            history[-1, 0],
+            history[-1, 1],
+            color="yellow",
+            s=150,
+            marker="*",
+            zorder=5,
+            label="end",
+        )
 
         ax.set_title(name)
         ax.set_xlabel("w₀ (bias)")
         ax.set_ylabel("w₁ (weight)")
         ax.legend(fontsize=8)
 
-    plt.suptitle("Weight Trajectory on Loss Surface",
-    fontsize=14, fontweight="bold")
+    plt.suptitle("Weight Trajectory on Loss Surface", fontsize=14, fontweight="bold")
     plt.tight_layout()
 
     save_plots = config["visualization"]["save_plots"]
@@ -79,8 +94,7 @@ def plot_weight_trajectory():
 
     if save_plots:
         os.makedirs("results", exist_ok=True)
-        plt.savefig("results/weight_trajectory.png",
-                    dpi=150, bbox_inches="tight")
+        plt.savefig("results/weight_trajectory.png", dpi=150, bbox_inches="tight")
         print("Saved to results/weight_trajectory.png")
 
     if show_plots:
@@ -89,4 +103,3 @@ def plot_weight_trajectory():
 
 if __name__ == "__main__":
     plot_weight_trajectory()
-        
